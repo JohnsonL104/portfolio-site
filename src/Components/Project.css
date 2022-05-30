@@ -1,0 +1,97 @@
+.project{
+    
+    display: flex;
+    flex-direction: column;
+     width: 40vw;
+     padding: 30px 10vw;
+     border: 1px solid black;
+     border-radius: 25px;
+ }
+ .project div{
+     margin: 7px 0;
+     display: flex;
+     width: 100%;
+     align-items: baseline;
+     flex-direction: column;
+ }
+.projectHead{
+    display: flex;
+    flex-direction: row !important;
+    width: 100%;
+    text-align: left;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.title{
+    font-size: 45px;
+    font-weight: bolder;
+}
+
+.projectGroup{
+    width: 100%;
+    text-align: left;
+}
+.projectHeading{
+    font-size:25px;
+    font-weight: bold;
+}
+.projectItem{
+    
+    text-align: left;
+    width: 100%;
+    margin-left: 7px;
+}
+
+
+
+
+
+.techLabel{
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+}
+.technologies{
+    display: inline;
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+}
+.technologies li{
+    display: inline-block;
+    font-size: 14px;
+    background-color: #eee;
+    padding: 4px 10px;
+    text-align: center;
+    border-radius: 10px;
+    margin: 2px 3px;
+}
+
+
+
+.talkingPoints{
+    width: 100%;
+    display: flex;
+    flex-direction: row !important;
+    justify-content: center;
+    align-items: center !important;
+}
+.talkingPoints button{
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    width: 20px;
+    
+}
+.talkingPoints button:hover{
+    cursor: pointer;
+}
+.talkingPoint{
+    padding: 10px;
+    border-radius: 20px;
+    flex-grow: 4;
+    width: auto !important;
+
+    border: 1px solid black;
+}
