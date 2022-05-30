@@ -1,10 +1,9 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { ProjectType } from "../Components/Project";
-import { StateUser } from "../Features/userInterfaces";
+import { API_URL } from "../Features/userSlice";
 
-const API_URL = "http://localhost:8080/users"
 
 
 const useFetchProject = (userId: string | undefined, projectId: string | undefined) =>{
@@ -16,7 +15,7 @@ const useFetchProject = (userId: string | undefined, projectId: string | undefin
         const getData = async () =>{
             setLoading(true);
             setError(null);
-            if(typeof userId !== undefined && typeof projectId !== undefined){
+            if(userId !== undefined && projectId !== undefined){
                 try{
                     const response = await axios.get(`${API_URL}/${userId}/projects/${projectId}`)
                     setProject(response.data.project)

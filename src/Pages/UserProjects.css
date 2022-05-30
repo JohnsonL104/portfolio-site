@@ -1,0 +1,10 @@
+.projectPageHead{
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    align-items: center;
+}
+.projectPageHeadSpacer{
+    width: 80px;
+    
+}

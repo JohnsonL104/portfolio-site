@@ -1,14 +1,16 @@
 
+import Button from "./Button";
+
 interface Props {
+    children: string;
     onClick(): void;
     error?: string | null;
-    children: React.ReactNode;
 }
-const ErrorButton = ({onClick, error=null, children}: Props) =>{
+const ErrorButton = ({children, onClick, error=null}: Props) =>{
     return(
         <div>
-            <button onClick={() => onClick()}>{children}</button>
-            <p>{error}</p>
+            <Button onClick={onClick}>{children}</Button>
+            <p style={{color: 'red'}}>{error}</p>
         </div>
     )
 }

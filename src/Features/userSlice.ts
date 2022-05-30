@@ -1,10 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { RejectedActionFromAsyncThunk } from "@reduxjs/toolkit/dist/matchers";
 import axios from "axios"
-import { ProjectType } from "../Components/Project";
-import { StateUser, StateType, LoginInfo, RLSuccess, ErrorPayload, RegisterUser, RejectedAction } from "./userInterfaces";
+import { StateUser, StateType, LoginInfo, RLSuccess, ErrorPayload, RegisterUser } from "./userInterfaces";
 
-const API_URL = "http://localhost:8080/users"
+export const API_URL = "https://portfolio-site-server-rf.herokuapp.com/users"
 
 const nullState: StateType ={
     user: null,
@@ -22,7 +20,7 @@ let token = localStorage.getItem("token")
 if(token && localUser && localUser !== "[object Object]" && (localStorage.getItem("loggedIn") === "true")){
 
     initialState = {
-        user : <StateUser>JSON.parse(localUser),
+        user : JSON.parse(localUser) as StateUser,
         auth:{
             loggedIn: true,
             token: token
@@ -37,31 +35,18 @@ if(token && localUser && localUser !== "[object Object]" && (localStorage.getIte
 export const login = createAsyncThunk(`user/login`, async (loginInfo: LoginInfo) => {
     let response = await axios.post(`${API_URL}/login`, loginInfo)
 
-    return <RLSuccess>response.data
+    return response.data as RLSuccess
 })
 
 export const register = createAsyncThunk(`user/register`, async( registerInfo: RegisterUser, thunkApi:any)=>{
     try{
         let response = await axios.post(`${API_URL}/register`, registerInfo)
         
-        return <RLSuccess>response.data
+        return response.data as RLSuccess
     }
     catch(err: any){
         
-        return thunkApi.rejectWithValue(<ErrorPayload>err.response.data)
-    }
-})
-export const addProject = createAsyncThunk(`user/addProject`, async( project: ProjectType, thunkApi:any)=>{
-    try{
-        let state = thunkApi.getState().user
-        console.log(state.auth.token)
-        let response = await axios.post(`${API_URL}/${state.user.id}/addProject`, project, { headers: {'Content-Type': 'application/json', 'authorization': state.auth.token}})
-        
-        return <RLSuccess>response.data
-    }
-    catch(err: any){
-        
-        return thunkApi.rejectWithValue(<ErrorPayload>err.response.data)
+        return thunkApi.rejectWithValue(err.response.data as ErrorPayload)
     }
 })
 const syncLocalStorage = (state: StateType) =>{
@@ -108,7 +93,7 @@ const userSlice = createSlice({
             })
             .addCase(login.rejected, (state, action) => {
                 
-                state.error = (action.error.message === "Request failed with status code 401") ? "Invalid Username or Password" : <string>action.error.message;
+                state.error = (action.error.message === "Request failed with status code 401") ? "Invalid Username or Password" : action.error.message as string;
                 state.status = 'failed'
                 state.auth.loggedIn = false;
                 state.auth.token = "";
@@ -132,23 +117,13 @@ const userSlice = createSlice({
             })
             .addCase(register.rejected, (state, action) => {
                 console.log(action)
-                let payload: ErrorPayload = <ErrorPayload>action.payload;
+                let payload: ErrorPayload = action.payload as ErrorPayload;
                 state.error = payload.message;
                 state.status = 'failed'
                 state.auth.loggedIn = false;
                 state.auth.token = "";
                 state.user = null
                 syncLocalStorage(state);
-            })
-            .addCase(addProject.fulfilled, (state, action) =>{
-                console.log(action);
-            })
-            .addCase(addProject.pending, (state, action) =>{
-                state.status = "loading"
-                state.error = ""
-            })
-            .addCase(addProject.rejected, (state, action) =>{
-                
             })
     }
 })

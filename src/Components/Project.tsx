@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import {  useContext, useState } from "react";
+import {  useNavigate } from "react-router-dom";
+import { ThemeContext } from "../Features/ThemeProvider";
 import './Project.css';
 export interface TalkingPoint {
     _id?: string;
@@ -17,12 +18,14 @@ export interface ProjectType{
 }
 
 interface Props{
-    project: ProjectType;
+    project: ProjectType;  
+    edit?: boolean;
 }
 
-const Project = ({project}: Props) =>{
+const Project = ({project, edit = false}: Props) =>{
     const [tpIndex, setTpIndex] = useState(0);
-
+    const nav = useNavigate();
+    const {theme} = useContext(ThemeContext);
     const next = () =>{
         if(tpIndex+1 < project.talkingPoints.length){
             setTpIndex((i) => i+1)
@@ -32,7 +35,7 @@ const Project = ({project}: Props) =>{
         }
     }
     const back = () =>{
-        if(tpIndex-1 > 0){
+        if(tpIndex-1 >= 0){
             setTpIndex((i) => i-1)
         }
         else{
@@ -44,43 +47,53 @@ const Project = ({project}: Props) =>{
 
 
     return(
-        <div className="project">
-            
-            <h2 className="title">{project.name}</h2>
-            
-            <label className="techLabel">Technologies: </label>
-            <ul className="technologies projectItem">
-                
-                {project.technologies.map((technology, i) =>{
-                    return(
-                        <li key = {i}>{technology}</li>
-                    )
-                })}
-            </ul>
-            <label className="projectHeading">Description</label>
-            <p className="projectItem">{project.description}</p>
-            
+        <div style={{marginTop: 5, marginBottom: 5, backgroundColor: theme.backgroundPrimary, borderColor: theme.foregroundSecondary}} className="project">
+            <div className="projectHead">
+                <h2 style={{color: theme.foregroundSecondary}} className="title">{project.name}</h2>
+                {
+                    edit &&
+                    <button className = "editButton" onClick={() =>{nav(`/editProject/${project._id}`)}}>Edit</button>
+                }
+            </div>
+            <div>
+                <label style={{color: theme.foregroundSecondary}} className="techLabel">Technologies: </label>
+                <ul className="technologies projectItem">
+                    
+                    {project.technologies.map((technology, i) =>{
+                        return(
+                            <li key = {i}>{technology}</li>
+                        )
+                    })}
+                </ul>
+            </div>
+            <div>
+                <label style={{color: theme.foregroundSecondary}} className="projectHeading">Description</label>
+                <p style={{color: theme.foregroundSecondary}} className="projectItem">{project.description}</p>
+            </div>
+           
             {project.talkingPoints.length > 0 &&
                 <div className="projectGroup">
-                    <label className="projectHeading">Talking Points</label>
+                    <label style={{color: theme.foregroundSecondary}} className="projectHeading">Talking Points</label>
                     <div className="talkingPoints">
-                        <button onClick={back}>&#x3c;</button>
+                        <button style={{color: theme.foregroundPrimary}} onClick={back}>&#x3c;</button>
                         
-                            <div className="talkingPoint">
-                                <h3>{project.talkingPoints[tpIndex].title}</h3>
+                            <div style={{backgroundColor: theme.backgroundPrimary, borderColor: theme.foregroundSecondary}} className="talkingPoint">
+                                <h3 style={{color: theme.foregroundSecondary}}>{project.talkingPoints[tpIndex].title}</h3>
                                 {
                                     project.talkingPoints[tpIndex].body &&
-                                    <p>{project.talkingPoints[tpIndex].body}</p>
+                                    <p style={{color: theme.foregroundSecondary}}>{project.talkingPoints[tpIndex].body}</p>
                                 }
                             </div>
                         
-                        <button onClick={next}>&#x3e;</button>
+                        <button style={{color: theme.foregroundPrimary}} onClick={next}>&#x3e;</button>
                     </div>
                 </div>
             }
-            <label className="projectHeading">Github</label>
-            <a href={project.github} className="projectItem">{project.github}</a>
-            
+           
+            <div>
+                <label style={{color: theme.foregroundSecondary}} className="projectHeading">Github</label>
+                <a href={project.github} className="projectItem">{project.github}</a>
+            </div>
         </div>
     )
 }

@@ -1,12 +1,27 @@
 .project{
+    
     display: flex;
     flex-direction: column;
      width: 40vw;
      padding: 30px 10vw;
-     align-items: baseline;
      border: 1px solid black;
      border-radius: 25px;
  }
+ .project div{
+     margin: 7px 0;
+     display: flex;
+     width: 100%;
+     align-items: baseline;
+     flex-direction: column;
+ }
+.projectHead{
+    display: flex;
+    flex-direction: row !important;
+    width: 100%;
+    text-align: left;
+    justify-content: space-between;
+    align-items: center;
+}
 
 
 .title{
@@ -59,7 +74,9 @@
 .talkingPoints{
     width: 100%;
     display: flex;
-    
+    flex-direction: row !important;
+    justify-content: center;
+    align-items: center !important;
 }
 .talkingPoints button{
     background-color: rgba(0, 0, 0, 0);
@@ -67,12 +84,14 @@
     width: 20px;
     
 }
-.talkingPoints button{
+.talkingPoints button:hover{
     cursor: pointer;
 }
 .talkingPoint{
     padding: 10px;
     border-radius: 20px;
-    flex-grow: 1;
+    flex-grow: 4;
+    width: auto !important;
+
     border: 1px solid black;
 }

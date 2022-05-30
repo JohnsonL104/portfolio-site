@@ -1,10 +1,10 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { ProjectType } from "../Components/Project";
 import { StateUser } from "../Features/userInterfaces";
 
-const API_URL = "http://localhost:8080/users"
+import { API_URL } from "../Features/userSlice";
 
 export interface UserWithProjects extends StateUser{
     projects: [ProjectType]
@@ -19,7 +19,7 @@ const useFetchUserWithProjects = (id: string | undefined) =>{
         const getData = async () =>{
             setLoading(true);
             setError(null);
-            if(typeof id !== undefined){
+            if(id !== undefined){
                 try{
                     const response = await axios.get(`${API_URL}/${id}`)
                     setUser(response.data)
