@@ -12,6 +12,7 @@ interface ThemeType {
     backgroundSecondary: string;
     foregroundPrimary: string;
     foregroundSecondary: string;
+    linkColor: string;
 }
 
 
@@ -28,6 +29,7 @@ export const themes: {dark: ThemeType, light: ThemeType} = {
         backgroundSecondary: "#818181",
         foregroundPrimary: "#F3DD11",
         foregroundSecondary: "#eee",
+        linkColor: "#F3DD11",
     },
     light:{
         nav: {
@@ -40,6 +42,7 @@ export const themes: {dark: ThemeType, light: ThemeType} = {
         backgroundSecondary: "#eee",
         foregroundPrimary: "#000",
         foregroundSecondary: "#000",
+        linkColor: "#d9c504",
     }
 }
 

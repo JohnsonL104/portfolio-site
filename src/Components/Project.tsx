@@ -92,7 +92,7 @@ const Project = ({project, edit = false}: Props) =>{
            
             <div>
                 <label style={{color: theme.foregroundSecondary}} className="projectHeading">Github</label>
-                <a href={project.github} className="projectItem">{project.github}</a>
+                <a href={project.github} style={{color: theme.linkColor}} className="projectItem">{project.github}</a>
             </div>
         </div>
     )

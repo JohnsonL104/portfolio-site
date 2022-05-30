@@ -39,6 +39,7 @@ const UserProjects = () =>{
                         <h1 style={{color: theme.foregroundPrimary}}>Your Project Page</h1>
                         <Button onClick={() => nav('/addProject')}>Add</Button>
                     </div>
+                    <p style={{color: theme.foregroundSecondary}}>Share to others: <a style={{color: theme.linkColor}} href={window.location.href}>{window.location.href}</a></p>
                     <div>
                     
                         {user.projects.map((project) =>{
@@ -51,6 +52,7 @@ const UserProjects = () =>{
                         })}
                     
                     </div>
+                    
                 </div>
             )
         }
