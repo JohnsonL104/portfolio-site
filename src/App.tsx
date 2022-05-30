@@ -19,6 +19,7 @@ import { useContext } from 'react';
 
 function App() {
   const {theme} = useContext(ThemeContext)
+  document.title = "Portfolio Site"
   document.body.style.backgroundColor = theme.backgroundPrimary
   return (
     <Router>
